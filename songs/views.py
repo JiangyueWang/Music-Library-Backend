@@ -31,3 +31,18 @@ def songs_list(request):
         #     return Response(serializers.data, status=status.HTTP_201_CREATED)
         # else:
         #     return Response(serializers.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(['GET'])
+def song_detail(request, pk):
+
+    # search the song table and return song which its id/pk equals to pk
+    # if the song exists in the database, return the song's info
+    # if the song doesnt exist in the database, return status code 404
+    # method 1
+    try:
+        song = Song.objects.get(id=pk)
+        serializers = SongSerializer(song)
+        return Response(serializers.data)
+    except Song.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)

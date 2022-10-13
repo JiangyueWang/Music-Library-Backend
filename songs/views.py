@@ -1,6 +1,8 @@
+from django.shortcuts import get_object_or_404
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
+from songs import serializers
 from songs.serializers import SongSerializer
 from songs.models import Song
 
@@ -39,10 +41,15 @@ def song_detail(request, pk):
     # search the song table and return song which its id/pk equals to pk
     # if the song exists in the database, return the song's info
     # if the song doesnt exist in the database, return status code 404
-    # method 1
-    try:
-        song = Song.objects.get(id=pk)
-        serializers = SongSerializer(song)
-        return Response(serializers.data)
-    except Song.DoesNotExist:
-        return Response(status=status.HTTP_404_NOT_FOUND)
+
+    # # method 1
+    # try:
+    #     song = Song.objects.get(id=pk)
+    #     serializers = SongSerializer(song)
+    #     return Response(serializers.data)
+    # except Song.DoesNotExist:
+    #     return Response(status=status.HTTP_404_NOT_FOUND)
+    # # method 2
+    song = get_object_or_404(Song, id=pk)
+    serializer = SongSerializer(song)
+    return Response(serializer.data)

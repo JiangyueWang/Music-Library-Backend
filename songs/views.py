@@ -9,13 +9,23 @@ from songs.models import Song
 # function songs_list is going to accept GET and POST request
 @api_view(['GET', 'POST'])
 def songs_list(request):
+
     if request.method == 'GET':
         # Get_All_Songs request
         # query all the songs from database
         songs = Song.objects.all()
-        # turn python data into JSON data via serializer
-        serializers = SongSerializer(songs, many=True)
-        return Response(serializers.data, status=status.HTTP_200_OK)
+        song_genre = request.query_params.get('genre').capitalize()
+
+        if song_genre:
+            songs = songs.filter(genre=song_genre)
+            serializers = SongSerializer(
+                songs, many=True
+            )
+            return Response(serializers.data, status=status.HTTP_200_OK)
+        else:
+            # turn python data into JSON data via serializer
+            serializers = SongSerializer(songs, many=True)
+            return Response(serializers.data, status=status.HTTP_200_OK)
     elif request.method == 'POST':
         # Create_Song request
         # pass the new data into the serializer

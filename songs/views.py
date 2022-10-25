@@ -14,14 +14,42 @@ def songs_list(request):
         # Get_All_Songs request
         # query all the songs from database
         songs = Song.objects.all()
-        song_genre = request.query_params.get('genre').capitalize()
+        # get the value from key of url parameter
+        song_title_value = request.query_params.get('title')
+        song_artist_value = request.query_params.get('artist')
+        song_album_value = request.query_params.get('album')
+        song_genre_value = request.query_params.get('genre')
 
-        if song_genre:
-            songs = songs.filter(genre=song_genre)
+        if song_title_value is not None:
+            # query database with paramater key=song_title_value and value from url
+            # e.g. url http://127.0.0.1:8000/api/music/?title=with
+            songs = songs.filter(title__icontains=song_title_value)
             serializers = SongSerializer(
                 songs, many=True
             )
             return Response(serializers.data, status=status.HTTP_200_OK)
+        elif song_artist_value is not None:
+            # query database with paramater key=artist and value from url
+            songs = songs.filter(artist__icontains=song_artist_value)
+            serializers = SongSerializer(
+                songs, many=True
+            )
+            return Response(serializers.data, status=status.HTTP_200_OK)
+        elif song_album_value is not None:
+            songs = songs.filter(album__icontains=song_album_value)
+            serializers = SongSerializer(
+                songs, many=True
+            )
+            return Response(serializers.data, status=status.HTTP_200_OK)
+        elif song_genre_value is not None:
+            # query database with paramater key=genre and value from url
+            # e.g. url http://127.0.0.1:8000/api/music/?genre=Po
+            songs = songs.filter(genre__icontains=song_genre_value)
+            serializers = SongSerializer(
+                songs, many=True
+            )
+            return Response(serializers.data, status=status.HTTP_200_OK)
+
         else:
             # turn python data into JSON data via serializer
             serializers = SongSerializer(songs, many=True)

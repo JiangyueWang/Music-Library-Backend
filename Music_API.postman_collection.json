@@ -148,10 +148,122 @@
 			"response": []
 		},
 		{
+			"name": "Filter_Song_Title",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/music/?title=with",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"music",
+						""
+					],
+					"query": [
+						{
+							"key": "title",
+							"value": "with"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Filter_Song_Artist",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/music/?artist=Sam",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"music",
+						""
+					],
+					"query": [
+						{
+							"key": "artist",
+							"value": "Sam"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "Filter_Song_Genre",
 			"request": {
 				"method": "GET",
-				"header": []
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/music/?genre=Po",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"music",
+						""
+					],
+					"query": [
+						{
+							"key": "genre",
+							"value": "Po"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Filter_Song_Album",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/music/?album=pin",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"music",
+						""
+					],
+					"query": [
+						{
+							"key": "album",
+							"value": "pin"
+						}
+					]
+				}
 			},
 			"response": []
 		}
